@@ -1,12 +1,8 @@
 # coding=utf-8
 
-import contextlib
-from typing import Mapping
 from util import *
-import requests
 import urllib
 import json
-import time
 from lxml import etree
 from pyquery import PyQuery as pq
 # import sys
@@ -24,6 +20,7 @@ def add(li, lis):
     add_list = [li + str(l) for l in lis]
     return add_list
 
+# testUrl
 biliApiUrl = 'https://api.bilibili.com/x/space/arc/search?mid=1128859087&ps=30&tid=0&pn={}'
 
 kbjApiUrl = 'https://bjapi.afreecatv.com/api/secretx/vods/all?page={}&per_page=60'
@@ -47,12 +44,17 @@ headers = get_headers()
 # 请求为动态网页 api
 def parseJsonData(jsondata):
     jsontext = json.loads(jsondata)
+    
+    # kbjTest code
     # li = jsontext['data']
     # link_list = [l['title_no'] for l in li]
     # st = "https://vod.afreecatv.com/PLAYER/STATION/"
+    
+    # biliTest demo
     li = jsontext['data']['list']['vlist']
     link_list = [l['bvid'] for l in li]
     st = "https://www.bilibili.com/video/"
+    
     parseList = add(st,link_list)   
     return parseList
 
